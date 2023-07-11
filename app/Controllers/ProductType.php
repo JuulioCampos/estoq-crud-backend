@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Models\ProductType as ProductTypeModel;
 class ProductType extends Controller
 {
     public function index()
     {
-        echo 'Página isnicial';
+        $_product_type = new ProductTypeModel();
+        print_r($_product_type->findById(1));
         die;
     }
 

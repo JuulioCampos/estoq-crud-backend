@@ -4,21 +4,17 @@ use App\Routes\Routes;
 require_once '../vendor/autoload.php';
 try {
 
-    // Configuração das rotas
     $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
         $r = (new Routes($r))->getRoutes();
     });
 
-    // Obter o método HTTP e a URI
     $httpMethod = $_SERVER['REQUEST_METHOD'];
     $uri = $_SERVER['REQUEST_URI'];
 
-    // Remover os parâmetros da URI, se houver
     if (($pos = strpos($uri, '?')) !== false) {
         $uri = substr($uri, 0, $pos);
     }
 
-    // Disparar a rota correspondente
     $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
     switch ($routeInfo[0]) {
@@ -37,7 +33,6 @@ try {
             // $controller = 'App\\Controllers\\' . $controller;
             $controllerInstance = new $controller();
 
-            // Chamar o método do controlador
             call_user_func_array([$controllerInstance, $method], $params);
             break;
     }

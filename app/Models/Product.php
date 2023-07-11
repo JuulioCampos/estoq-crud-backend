@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-class ProductType extends Model
+class Product extends Model
 {
-    private const TABLE = 'product_type';
+    private const TABLE = 'product';
     protected function getTable(): string
     {
         return self::TABLE;

@@ -12,10 +12,10 @@ class Routes
 
     public function getRoutes(): RouteCollector {
         //products
-        $this->route->addRoute('GET', "/product-type", ProductType::class . '@index');
-        $this->route->addRoute('POST', "/product-type", ProductType::class . '@store');
-        $this->route->addRoute('PUT', "/product-type/{id:\d+}", ProductType::class . '@edit');
-        $this->route->addRoute('DELETE', "/product-type/{id:\d+}", ProductType::class . '@delete');
+        $this->route->addRoute('GET', "/api/product-type", ProductType::class . '@index');
+        $this->route->addRoute('POST', "/api/product-type", ProductType::class . '@store');
+        $this->route->addRoute('PUT', "/api/product-type/{id:\d+}", ProductType::class . '@edit');
+        $this->route->addRoute('DELETE', "/api/product-type/{id:\d+}", ProductType::class . '@delete');
 
 
 

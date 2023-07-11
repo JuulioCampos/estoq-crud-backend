@@ -1,0 +1,64 @@
+# Projeto CRUD Estoque com PHP, postgres e React
+
+## Descrição
+Este projeto XYZ é uma aplicação web desenvolvida com PHP e PostgreSQL, e utiliza Docker para facilitar o ambiente de desenvolvimento.
+
+## Pré-requisitos
+Certifique-se de ter o Docker instalado no seu sistema. Você pode encontrar instruções de instalação para o Docker nos seguintes links:
+- [Docker para Windows](https://docs.docker.com/docker-for-windows/install/)
+- [Docker para macOS](https://docs.docker.com/docker-for-mac/install/)
+- [Docker para Linux](https://docs.docker.com/engine/install/)
+
+## Instalação
+Siga as etapas abaixo para executar o projeto em seu ambiente local:
+
+1. Clone este repositório em sua máquina local.
+2. Navegue até o diretório raiz do projeto.
+
+## Configuração
+Antes de iniciar o projeto, você precisará configurar as variáveis de ambiente no arquivo `docker-compose.yaml`:
+
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+POSTGRES_DB=teste
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=root
+
+
+## Build e execução
+Após configurar as variáveis de ambiente, você pode executar o projeto com o seguinte comando:
+
+`docker-compose up`
+
+
+
+Isso criará e inicializará os contêineres Docker necessários para a execução do projeto.
+
+## Acessando a aplicação
+Após a execução do projeto, você poderá acessar a aplicação web através do navegador usando o seguinte endereço:
+
+URL: http://localhost:8080
+
+
+
+## Acessando o PgAdmin
+O PgAdmin é uma interface gráfica para gerenciamento do PostgreSQL. Ele está disponível em um contêiner separado neste projeto.
+
+Para acessar o PgAdmin, abra o navegador e visite o seguinte endereço:
+
+URL: http://localhost:5050
+
+
+
+Use as seguintes credenciais para fazer login:
+
+E-mail: teste@teste.com
+Senha: teste
+
+
+
+## Contribuição
+Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou relatar problemas.
+
+## Licença
+Este projeto está licenciado sob a MIT License.
