@@ -40,14 +40,14 @@ VALUES
 CREATE TABLE sales (
   id SERIAL PRIMARY KEY,
   product_id INT NOT NULL,
-  price_total DECIMAL(10, 2) NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
 -- Inserts para a tabela 'sales'
-INSERT INTO sales (product_id, price_total)
+INSERT INTO sales (product_id, amount)
 VALUES
   (1, 50.0),
   (2, 100.0),

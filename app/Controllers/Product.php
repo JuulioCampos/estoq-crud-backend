@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\ProductType as ProductTypeModel;
+use App\Models\Product as ProductModel;
 
-class ProductType extends Controller
+class Product extends Controller
 {
     public function find($id): void
     {
         try {
-            $_product_type = new ProductTypeModel();
+            $_product_type = new ProductModel();
             $this->handleResponse($_product_type->findById($id));
         } catch (\Throwable $th) {
             $this->handleResponse($th);
@@ -19,7 +19,7 @@ class ProductType extends Controller
     function index(): void
     {
         try {
-            $_product_type = new ProductTypeModel();
+            $_product_type = new ProductModel();
             $this->handleResponse($_product_type->getAll());
         } catch (\Throwable $th) {
             $this->handleResponse($th);

@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\ProductType as ProductTypeModel;
+use App\Models\Sales as SalesModel;
 
-class ProductType extends Controller
+class Sales extends Controller
 {
     public function find($id): void
     {
         try {
-            $_product_type = new ProductTypeModel();
-            $this->handleResponse($_product_type->findById($id));
+            $_sales = new SalesModel();
+            $this->handleResponse($_sales->findById($id));
         } catch (\Throwable $th) {
             $this->handleResponse($th);
         }
@@ -19,8 +19,8 @@ class ProductType extends Controller
     function index(): void
     {
         try {
-            $_product_type = new ProductTypeModel();
-            $this->handleResponse($_product_type->getAll());
+            $_sales = new SalesModel();
+            $this->handleResponse($_sales->getAll());
         } catch (\Throwable $th) {
             $this->handleResponse($th);
         }

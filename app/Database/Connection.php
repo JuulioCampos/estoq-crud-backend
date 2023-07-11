@@ -15,6 +15,7 @@ class Connection
         $user= getenv("POSTGRES_USER");
         $pass = getenv("POSTGRES_PASSWORD");
         $port= getenv("POSTGRES_PORT");
+        
         if (!isset(self::$instance)) {
             $dsn = "pgsql:host={$host};port={$port};dbname={$db}";
             $username = $user;
