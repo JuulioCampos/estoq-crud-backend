@@ -17,26 +17,26 @@ class Routes
 
     public function getRoutes(): RouteCollector
     {
-        //products type
-        $this->route->addRoute('GET', "/api/product-type", ProductType::class . '@index');
-        $this->route->addRoute('POST', "/api/product-type", ProductType::class . '@store');
-        $this->route->addRoute('PUT', "/api/product-type/{id:\d+}", ProductType::class . '@edit');
-        $this->route->addRoute('DELETE', "/api/product-type/{id:\d+}", ProductType::class . '@delete');
+        $this->route->addGroup('/api', function (RouteCollector $r) {
+            //products type
+            $this->route->addRoute('GET', "/product-type", ProductType::class . '@index');
+            $this->route->addRoute('POST', "/product-type", ProductType::class . '@store');
+            $this->route->addRoute('PUT', "/product-type/{id:\d+}", ProductType::class . '@edit');
+            $this->route->addRoute('DELETE', "/product-type/{id:\d+}", ProductType::class . '@delete');
 
-        //products
-        //products
-        $this->route->addRoute('GET', "/api/product", Product::class . '@index');
-        $this->route->addRoute('POST', "/api/product", Product::class . '@store');
-        $this->route->addRoute('PUT', "/api/product/{id:\d+}", Product::class . '@edit');
-        $this->route->addRoute('DELETE', "/api/product/{id:\d+}", Product::class . '@delete');
+            //products
+            $this->route->addRoute('GET', "/product", Product::class . '@index');
+            $this->route->addRoute('POST', "/product", Product::class . '@store');
+            $this->route->addRoute('PUT', "/product/{id:\d+}", Product::class . '@edit');
+            $this->route->addRoute('DELETE', "/product/{id:\d+}", Product::class . '@delete');
 
-        //sales
-        //products
-        $this->route->addRoute('GET', "/api/sales", Sales::class . '@index');
-        $this->route->addRoute('POST', "/api/sales", Sales::class . '@store');
-        $this->route->addRoute('PUT', "/api/sales/{id:\d+}", Sales::class . '@edit');
-        $this->route->addRoute('DELETE', "/api/sales/{id:\d+}", Sales::class . '@delete');
+            //sales
+            $this->route->addRoute('GET', "/sales", Sales::class . '@index');
+            $this->route->addRoute('POST', "/sales", Sales::class . '@store');
+            $this->route->addRoute('PUT', "/sales/{id:\d+}", Sales::class . '@edit');
+            $this->route->addRoute('DELETE', "/sales/{id:\d+}", Sales::class . '@delete');
 
+        });
         return $this->route;
     }
 }
