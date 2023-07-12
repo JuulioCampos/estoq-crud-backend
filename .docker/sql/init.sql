@@ -16,6 +16,7 @@ VALUES
   ('Eletronico', 1.2),
   ('Alvenaria', 1.1),
   ('Alimento', 1.5);
+  ('toRemoved', 1);
 
 -- Criação da tabela 'product'
 CREATE TABLE product (
@@ -35,6 +36,7 @@ VALUES
   ('Televisão', 25.52, 2),
   ('Mesa', 31.01, 3),
   ('Banana', 212.2, 4);
+  ('forRemove', 212.2, 4);
 
 -- Criação da tabela 'sales'
 CREATE TABLE sales (

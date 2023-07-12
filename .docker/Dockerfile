@@ -8,6 +8,11 @@ RUN apt-get update && apt-get install -y \
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
+RUN apt-get install -y wget \
+    && wget https://phar.phpunit.de/phpunit-9.5.phar \
+    && chmod +x phpunit-9.5.phar \
+    && mv phpunit-9.5.phar /usr/local/bin/phpunit
+
 COPY . /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html

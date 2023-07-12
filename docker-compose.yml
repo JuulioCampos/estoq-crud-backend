@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   app:
     build:
@@ -7,7 +5,6 @@ services:
       dockerfile: ./.docker/Dockerfile
     volumes:
       - .:/var/www/html
-      - xdebug-data:/tmp/xdebug:cached
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
@@ -16,7 +13,6 @@ services:
       - POSTGRES_PASSWORD=root
     ports:
       - 9000:9000 # Porta do Xdebug
-    tty: true
 
   web:
     image: nginx:latest
@@ -49,6 +45,16 @@ services:
     depends_on:
       - db
 
-volumes:
-  xdebug-data:
-    name: teste_xdebug-data
+  tests:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    volumes:
+      - .:/var/www/html
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=teste
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    command: phpunit --configuration phpunit.xml

@@ -30,19 +30,16 @@ class ProductType extends Model
 
     public function edit(int $id, array $data): array
     {
-        foreach ($this->requiredColumns as $column) {
-            if (!array_key_exists($column, $data)) {
-                throw new \InvalidArgumentException("Missing required column: $column");
-            }
-        }
+        $this->validateColumns($data);
+
         if ($this->update($id, $data)) {
             return [
                 "status" => true,
                 "msg" => "Product type updated successfully"
             ];
         }
+
         throw new \Exception("Error Processing Request", 1);
-        
     }
 
     public function delete(int $id): array

@@ -88,9 +88,17 @@ class Model
     public function update(int $id, array $data): bool
     {
         $table = $this->getTable();
+        $columns = array_keys($data);
+        $validColumns = array_intersect($columns, $this->requiredColumns);
+
+        if (empty($validColumns)) {
+            throw new \InvalidArgumentException('No valid columns provided for update');
+        }
+
         $set = implode(', ', array_map(function ($column) {
             return "$column = :$column";
-        }, array_keys($data)));
+        }, $validColumns));
+
         $query = "UPDATE $table SET $set WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $data['id'] = $id;
@@ -102,6 +110,7 @@ class Model
             die('Error executing query: ' . $e->getMessage());
         }
     }
+
 
     public function remove(int $id): bool
     {
@@ -121,4 +130,14 @@ class Model
     {
     }
 
+    public function validateColumns(array $data): void
+    {
+        $columns = array_keys($data);
+        $invalidColumns = array_diff($columns, $this->requiredColumns);
+
+        if (!empty($invalidColumns)) {
+            $invalidColumnsStr = implode(', ', $invalidColumns);
+            throw new \InvalidArgumentException("Invalid columns provided for update: $invalidColumnsStr");
+        }
+    }
 }
