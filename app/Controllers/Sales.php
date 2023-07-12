@@ -25,17 +25,35 @@ class Sales extends Controller
             $this->handleResponse($th);
         }
     }
-    public function edit()
+    public function edit($id)
     {
-        echo 'edit nós';
+        try {
+            $_sales = new SalesModel();
+            $response = $_sales->edit($id, $this->getBody());
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
 
     public function store()
     {
-        echo 'store nós';
+        try {
+            $_sales = new SalesModel();
+            $response = $_sales->create($this->getBody());
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
-    public function delete()
+    public function delete($id)
     {
-        echo 'delete nós';
+        try {
+            $_sales = new SalesModel();
+            $response = $_sales->delete($id);
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
 }

@@ -25,17 +25,35 @@ class ProductType extends Controller
             $this->handleResponse($th);
         }
     }
-    public function edit()
+    public function edit($id)
     {
-        echo 'edit nós';
+        try {
+            $_product_type = new ProductTypeModel();
+            $response = $_product_type->edit($id, $this->getBody());
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
 
     public function store()
     {
-        echo 'store nós';
+        try {
+            $_product_type = new ProductTypeModel();
+            $response = $_product_type->create($this->getBody());
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
-    public function delete()
+    public function delete($id)
     {
-        echo 'delete nós';
+        try {
+            $_product_type = new ProductTypeModel();
+            $response = $_product_type->delete($id);
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
 }

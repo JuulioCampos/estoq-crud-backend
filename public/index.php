@@ -1,8 +1,13 @@
 <?php
-use App\Routes\Routes;
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+header('Content-Type: application/json');
 
+use App\Routes\Routes;
 require_once '../vendor/autoload.php';
 try {
+
 
     $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
         $r = (new Routes($r))->getRoutes();
@@ -36,6 +41,7 @@ try {
             call_user_func_array([$controllerInstance, $method], $params);
             break;
     }
+    
 } catch (\Throwable $th) {
     echo $th->getMessage();
 }

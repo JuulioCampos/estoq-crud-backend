@@ -12,30 +12,47 @@ class Sales extends Model
         return self::TABLE;
     }
 
-    public function create(array $data): bool
+    public function create(array $data): array
     {
         foreach ($this->requiredColumns as $column) {
             if (!array_key_exists($column, $data)) {
                 throw new \InvalidArgumentException("Missing required column: $column");
             }
         }
-
-        return $this->insert($data);
+        if ($this->insert($data)) {
+            return [
+                "status" => true,
+                "msg" => "Product type created successfully"
+            ];
+        }
+        throw new \Exception("Error Processing Request", 1);
     }
 
-    public function edit(int $id, array $data): bool
+    public function edit(int $id, array $data): array
     {
         foreach ($this->requiredColumns as $column) {
             if (!array_key_exists($column, $data)) {
                 throw new \InvalidArgumentException("Missing required column: $column");
             }
         }
-
-        return $this->update($id, $data);
+        if ($this->update($id, $data)) {
+            return [
+                "status" => true,
+                "msg" => "Sale updated successfully"
+            ];
+        }
+        throw new \Exception("Error Processing Request", 1);
+        
     }
 
-    public function delete(int $id): bool
+    public function delete(int $id): array
     {
-        return $this->delete($id);
+        if ($this->remove($id)) {
+            return [
+                "status" => true,
+                "msg" => "Sales deleted successfully"
+            ];
+        }
+        throw new \Exception("Error Processing Request", 1);
     }
 }

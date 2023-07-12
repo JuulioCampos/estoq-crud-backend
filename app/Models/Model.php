@@ -103,7 +103,7 @@ class Model
         }
     }
 
-    public function delete(int $id): bool
+    public function remove(int $id): bool
     {
         $table = $this->getTable();
         $query = "DELETE FROM $table WHERE id = :id";

@@ -9,8 +9,8 @@ class Product extends Controller
     public function find($id): void
     {
         try {
-            $_product_type = new ProductModel();
-            $this->handleResponse($_product_type->findById($id));
+            $_product = new ProductModel();
+            $this->handleResponse($_product->findById($id));
         } catch (\Throwable $th) {
             $this->handleResponse($th);
         }
@@ -19,23 +19,41 @@ class Product extends Controller
     function index(): void
     {
         try {
-            $_product_type = new ProductModel();
-            $this->handleResponse($_product_type->getAll());
+            $_product = new ProductModel();
+            $this->handleResponse($_product->getAll());
         } catch (\Throwable $th) {
             $this->handleResponse($th);
         }
     }
-    public function edit()
+    public function edit($id)
     {
-        echo 'edit nós';
+        try {
+            $_product = new ProductModel();
+            $response = $_product->edit($id, $this->getBody());
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
 
     public function store()
     {
-        echo 'store nós';
+        try {
+            $_product = new ProductModel();
+            $response = $_product->create($this->getBody());
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
-    public function delete()
+    public function delete($id)
     {
-        echo 'delete nós';
+        try {
+            $_product = new ProductModel();
+            $response = $_product->delete($id);
+            $this->handleResponse($response);
+        } catch (\Throwable $th) {
+            $this->handleResponse($th);
+        }
     }
 }
