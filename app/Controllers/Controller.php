@@ -15,6 +15,7 @@ class Controller
 
     protected function handleResponse($response, $status = 200): string
     {
+        
         if ($response instanceof \Throwable || $response instanceof \Exception) {
             $statusCode = $response->getCode() ?: 500; // Internal Server Error
             $data = [

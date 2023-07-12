@@ -3,7 +3,7 @@
 -- Criação da tabela 'product_type'
 CREATE TABLE product_type (
   id SERIAL PRIMARY KEY,
-  description VARCHAR(150) NOT NULL UNIQUE,
+  description VARCHAR(150) NOT NULL,
   tax DECIMAL(10, 2) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

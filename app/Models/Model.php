@@ -23,7 +23,10 @@ class Model
             $result = $stmt->fetch(\PDO::FETCH_ASSOC);
             return $result ?: null;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return [
+                "status" => false,
+                "msg" => $e->getMessage(),
+            ];
         }
     }
     public function getAll(): array
@@ -36,11 +39,14 @@ class Model
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $result ?: [];
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return [
+                "status" => false,
+                "msg"
+            ];
         }
     }
 
-    public function findWhere(array $conditions): array
+    public function findWhere(array $conditions): array|bool
     {
         $table = $this->getTable();
         $query = "SELECT * FROM $table";
@@ -65,27 +71,26 @@ class Model
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $result ?: [];
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
 
-    public function insert(array $data): bool
+    public function insert(array $data): bool|array
     {
         $table = $this->getTable();
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
         $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $stmt = $this->db->prepare($query);
-
         try {
             $stmt->execute($data);
             return true;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+           return false;
         }
     }
 
-    public function update(int $id, array $data): bool
+    public function update(int $id, array $data): bool|array
     {
         $table = $this->getTable();
         $columns = array_keys($data);
@@ -107,12 +112,12 @@ class Model
             $stmt->execute($data);
             return true;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
 
 
-    public function remove(int $id): bool
+    public function remove(int $id): bool|array
     {
         $table = $this->getTable();
         $query = "DELETE FROM $table WHERE id = :id";
@@ -123,7 +128,7 @@ class Model
             $stmt->execute();
             return true;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
     protected function getTable(): ?string

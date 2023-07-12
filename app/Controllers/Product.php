@@ -39,8 +39,8 @@ class Product extends Controller
     public function store()
     {
         try {
-            $_product = new ProductModel();
-            $response = $_product->create($this->getBody());
+            $_product_type = new ProductModel();
+            $response = $_product_type->create($this->getBody());
             $this->handleResponse($response);
         } catch (\Throwable $th) {
             $this->handleResponse($th);
