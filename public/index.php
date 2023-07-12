@@ -29,7 +29,7 @@ try {
         case FastRoute\Dispatcher::FOUND:
             [$controller, $method] = explode('@', $routeInfo[1]);
             $params = $routeInfo[2];
-
+            
             // $controller = 'App\\Controllers\\' . $controller;
             $controllerInstance = new $controller();
 
