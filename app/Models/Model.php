@@ -6,7 +6,7 @@ use App\Database\Connection;
 
 class Model
 {
-    private $db;
+    public $db;
     public function __construct()
     {
         $this->db = Connection::getConnection();
@@ -69,6 +69,54 @@ class Model
         }
     }
 
+    public function insert(array $data): bool
+    {
+        $table = $this->getTable();
+        $columns = implode(', ', array_keys($data));
+        $placeholders = ':' . implode(', :', array_keys($data));
+        $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+        $stmt = $this->db->prepare($query);
+
+        try {
+            $stmt->execute($data);
+            return true;
+        } catch (\PDOException $e) {
+            die('Error executing query: ' . $e->getMessage());
+        }
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        $table = $this->getTable();
+        $set = implode(', ', array_map(function ($column) {
+            return "$column = :$column";
+        }, array_keys($data)));
+        $query = "UPDATE $table SET $set WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $data['id'] = $id;
+
+        try {
+            $stmt->execute($data);
+            return true;
+        } catch (\PDOException $e) {
+            die('Error executing query: ' . $e->getMessage());
+        }
+    }
+
+    public function delete(int $id): bool
+    {
+        $table = $this->getTable();
+        $query = "DELETE FROM $table WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (\PDOException $e) {
+            die('Error executing query: ' . $e->getMessage());
+        }
+    }
     protected function getTable(): ?string
     {
     }
