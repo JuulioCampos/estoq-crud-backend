@@ -12,8 +12,8 @@ class Product extends Model
     }
     public function getAll(): array
     {
-        $query = "SELECT * FROM product 
-        INNER JOIN product_type ON product_type.id = product.id";
+        $query = "SELECT product.id, product.product, product.price, product.product_type_id, product_type.tax, product_type.description  FROM product 
+        INNER JOIN product_type ON product_type.id = product.product_type_id";
         $stmt = $this->db->prepare($query);
 
         try {

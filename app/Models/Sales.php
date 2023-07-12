@@ -11,6 +11,20 @@ class Sales extends Model
     {
         return self::TABLE;
     }
+    public function getAll(): array
+    {
+        $query = "SELECT * FROM sales 
+        INNER JOIN product ON product.id = sales.product_id";
+        $stmt = $this->db->prepare($query);
+
+        try {
+            $stmt->execute();
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $result ?: [];
+        } catch (\PDOException $e) {
+            die('Error executing query: ' . $e->getMessage());
+        }
+    }
 
     public function create(array $data): array
     {
@@ -22,7 +36,7 @@ class Sales extends Model
         if ($this->insert($data)) {
             return [
                 "status" => true,
-                "msg" => "Product type created successfully"
+                "msg" => "Sale created successfully"
             ];
         }
         throw new \Exception("Error Processing Request", 1);

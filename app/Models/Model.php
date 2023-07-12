@@ -23,7 +23,7 @@ class Model
             $result = $stmt->fetch(\PDO::FETCH_ASSOC);
             return $result ?: null;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
     public function getAll(): array
@@ -36,7 +36,7 @@ class Model
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $result ?: [];
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
 
@@ -65,7 +65,7 @@ class Model
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $result ?: [];
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
 
@@ -75,13 +75,14 @@ class Model
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
         $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+
         $stmt = $this->db->prepare($query);
 
         try {
             $stmt->execute($data);
             return true;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
 
@@ -107,7 +108,7 @@ class Model
             $stmt->execute($data);
             return true;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
 
@@ -123,7 +124,7 @@ class Model
             $stmt->execute();
             return true;
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return false;
         }
     }
     protected function getTable(): ?string

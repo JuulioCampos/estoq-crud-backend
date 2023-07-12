@@ -3,7 +3,7 @@
 -- Criação da tabela 'product_type'
 CREATE TABLE product_type (
   id SERIAL PRIMARY KEY,
-  description VARCHAR(150) NOT NULL UNIQUE,
+  description VARCHAR(150) NOT NULL,
   tax DECIMAL(10, 2) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -15,7 +15,7 @@ VALUES
   ('Cano', 1.2),
   ('Eletronico', 1.2),
   ('Alvenaria', 1.1),
-  ('Alimento', 1.5);
+  ('Alimento', 1.5),
   ('toRemoved', 1);
 
 -- Criação da tabela 'product'
@@ -35,7 +35,7 @@ VALUES
   ('Cano PVC', 21.2, 1),
   ('Televisão', 25.52, 2),
   ('Mesa', 31.01, 3),
-  ('Banana', 212.2, 4);
+  ('Banana', 212.2, 4),
   ('forRemove', 212.2, 4);
 
 -- Criação da tabela 'sales'
@@ -43,15 +43,16 @@ CREATE TABLE sales (
   id SERIAL PRIMARY KEY,
   product_id INT NOT NULL,
   amount DECIMAL(10, 2) NOT NULL,
+  quantity INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
 -- Inserts para a tabela 'sales'
-INSERT INTO sales (product_id, amount)
+INSERT INTO sales (product_id, amount, quantity)
 VALUES
-  (1, 50.0),
-  (2, 100.0),
-  (3, 150.0),
-  (4, 200.0);
+  (1, 50.0, 2),
+  (2, 100.0, 5),
+  (3, 150.0, 192),
+  (4, 200.0, 1);
