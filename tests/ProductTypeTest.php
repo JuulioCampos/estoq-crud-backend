@@ -46,7 +46,6 @@ class ProductTypeTest extends TestCase
 
         $this->assertTrue($result['status']);
 
-        // Verificar se o tipo de produto foi editado corretamente
         $editedProductType = $productType->findById($this->productTypeId);
         $this->assertEquals($productTypeData['description'], $editedProductType['description']);
     }
