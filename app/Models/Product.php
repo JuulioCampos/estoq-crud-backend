@@ -21,7 +21,10 @@ class Product extends Model
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $result ?: [];
         } catch (\PDOException $e) {
-            die('Error executing query: ' . $e->getMessage());
+            return [
+                "status" => false,
+                "msg" => $e->getMessage()
+            ];
         }
     }
 
@@ -35,9 +38,10 @@ class Product extends Model
         if ($this->insert($data)) {
             return [
                 "status" => true,
-                "msg" => "Product created successfully"
+                "msg" => "Product type created successfully"
             ];
         }
+        
         throw new \Exception("Error Processing Request", 1);
     }
 

@@ -36,11 +36,11 @@ class Model
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $result ?: [];
         } catch (\PDOException $e) {
-            return false;
+            die('Error executing query: ' . $e->getMessage());
         }
     }
 
-    public function findWhere(array $conditions): array
+    public function findWhere(array $conditions): array|bool
     {
         $table = $this->getTable();
         $query = "SELECT * FROM $table";
@@ -69,7 +69,7 @@ class Model
         }
     }
 
-    public function insert(array $data): bool
+    public function insert(array $data): bool|array
     {
         $table = $this->getTable();
         $columns = implode(', ', array_keys($data));
@@ -77,16 +77,15 @@ class Model
         $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
 
         $stmt = $this->db->prepare($query);
-
         try {
             $stmt->execute($data);
             return true;
         } catch (\PDOException $e) {
-            return false;
+            die('Error executing query: ' . $e->getMessage());
         }
     }
 
-    public function update(int $id, array $data): bool
+    public function update(int $id, array $data): bool|array
     {
         $table = $this->getTable();
         $columns = array_keys($data);
@@ -113,7 +112,7 @@ class Model
     }
 
 
-    public function remove(int $id): bool
+    public function remove(int $id): bool|array
     {
         $table = $this->getTable();
         $query = "DELETE FROM $table WHERE id = :id";

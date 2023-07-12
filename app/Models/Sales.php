@@ -49,7 +49,7 @@ class Sales extends Model
         if ($this->update($id, $data)) {
             return [
                 "status" => true,
-                "msg" => "Sale updated successfully"
+                "msg" => "Sales updated successfully"
             ];
         }
 
